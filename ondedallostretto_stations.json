@@ -9,6 +9,8 @@
    "streamURL":"https://kisskiss.fluidstream.eu/KissKiss.mp3"},
   {"id":"zeta","name":"Radio Zeta","group":"national","frequency":89.5,
    "streamURL":"https://dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S9346184/clhI2IJWRnn7/playlist_audio.m3u8"},
+  {"id":"ricordi","name":"Radio Ricordi","group":"local","frequency":90.0,
+   "streamURL":"https://stream1.xdevel.com/audio2s975889-476/stream/icecast.audio"},
   {"id":"rcl","name":"RCL Castell'Umberto","group":"local","frequency":90.2,
    "streamURL":"https://eu1.fastcast4u.com/proxy/discorin?mp=/;"},
   {"id":"deejay","name":"Radio Deejay","group":"national","frequency":90.4,
