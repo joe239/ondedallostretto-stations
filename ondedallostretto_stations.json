@@ -60,7 +60,7 @@
   {"id":"stereosantagata","name":"Radio Stereo Sant'Agata","group":"local","frequency":103.0,
    "streamURL":"https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037"},
   {"id":"taormina","name":"Radio Taormina","group":"local","frequency":103.3,
-   "streamURL":"https://stream2.xdevel.com/audio1s3-8/stream/icecast.audio"},
+   "streamURL":"https://stream2.xdevel.com/audio0s11-12/stream/icecast.audio"},
   {"id":"isoradio","name":"Rai Isoradio","group":"national","frequency":104.2,
    "streamURL":"http://icestreaming.rai.it/6.mp3"},
   {"id":"touring104","name":"Radio Touring 104","group":"local","frequency":104.4,
