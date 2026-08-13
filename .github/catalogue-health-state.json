@@ -1,10 +1,10 @@
 {
   "stations": {
     "isoradio": {
-      "consecutive_failures": 2,
+      "consecutive_failures": 3,
       "issue_number": 3,
       "last_result": {
-        "checked_at": "2026-08-13T19:30:39+00:00",
+        "checked_at": "2026-08-13T19:47:28+00:00",
         "cleartext_urls": [
           "http://icestreaming.rai.it/6.mp3"
         ],
@@ -13,14 +13,14 @@
           "audio_bytes_arrived": true,
           "content_type": "audio/mpeg",
           "detail": "direct stream",
-          "final_url": "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S3822289/9T4F68Q3TT4m/icecast",
+          "final_url": "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S88230050/W3T2uXpEeCuN/icecast",
           "healthy": true,
           "http_status": 200,
           "request_urls": [
             "http://icestreaming.rai.it/6.mp3",
-            "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S3822289/9T4F68Q3TT4m/icecast"
+            "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S88230050/W3T2uXpEeCuN/icecast"
           ],
-          "response_ms": 709
+          "response_ms": 1105
         },
         "outcome": "app-cleartext-http",
         "outcomes": [
@@ -56,15 +56,15 @@
             "http://icestreaming.rai.it/6.mp3",
             "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=6794912"
           ],
-          "response_ms": 700
+          "response_ms": 956
         }
       }
     },
     "medua": {
-      "consecutive_failures": 1,
-      "issue_number": null,
+      "consecutive_failures": 2,
+      "issue_number": 4,
       "last_result": {
-        "checked_at": "2026-08-13T19:30:11+00:00",
+        "checked_at": "2026-08-13T19:46:58+00:00",
         "cleartext_urls": [],
         "healthy": false,
         "ios_probe": {
@@ -77,7 +77,7 @@
           "request_urls": [
             "https://ssl1.azotosolutions.com:1030/1"
           ],
-          "response_ms": 485
+          "response_ms": 546
         },
         "outcome": "tls-certificate-expiring",
         "outcomes": [
@@ -104,15 +104,15 @@
           "request_urls": [
             "https://ssl1.azotosolutions.com:1030/1"
           ],
-          "response_ms": 424
+          "response_ms": 538
         }
       }
     },
     "milazzo": {
-      "consecutive_failures": 1,
-      "issue_number": null,
+      "consecutive_failures": 2,
+      "issue_number": 7,
       "last_result": {
-        "checked_at": "2026-08-13T19:30:34+00:00",
+        "checked_at": "2026-08-13T19:47:23+00:00",
         "cleartext_urls": [
           "http://51.254.76.66:8012/;stream.mp3"
         ],
@@ -127,7 +127,7 @@
           "request_urls": [
             "http://51.254.76.66:8012/;stream.mp3"
           ],
-          "response_ms": 278
+          "response_ms": 346
         },
         "outcome": "app-cleartext-http",
         "outcomes": [
@@ -145,15 +145,15 @@
           "request_urls": [
             "http://51.254.76.66:8012/;stream.mp3"
           ],
-          "response_ms": 286
+          "response_ms": 344
         }
       }
     },
     "rai1": {
-      "consecutive_failures": 2,
+      "consecutive_failures": 3,
       "issue_number": 1,
       "last_result": {
-        "checked_at": "2026-08-13T19:30:11+00:00",
+        "checked_at": "2026-08-13T19:46:58+00:00",
         "cleartext_urls": [
           "http://icestreaming.rai.it/1.mp3"
         ],
@@ -162,14 +162,14 @@
           "audio_bytes_arrived": true,
           "content_type": "audio/mpeg",
           "detail": "direct stream",
-          "final_url": "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S18493106/rCMKqdMFKPBB/icecast",
+          "final_url": "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S16355530/Q4zh3NTu28Rx/icecast",
           "healthy": true,
           "http_status": 200,
           "request_urls": [
             "http://icestreaming.rai.it/1.mp3",
-            "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S18493106/rCMKqdMFKPBB/icecast"
+            "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S16355530/Q4zh3NTu28Rx/icecast"
           ],
-          "response_ms": 1096
+          "response_ms": 1265
         },
         "outcome": "app-cleartext-http",
         "outcomes": [
@@ -205,15 +205,15 @@
             "http://icestreaming.rai.it/1.mp3",
             "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=3573854"
           ],
-          "response_ms": 1181
+          "response_ms": 1319
         }
       }
     },
     "rai3": {
-      "consecutive_failures": 1,
-      "issue_number": null,
+      "consecutive_failures": 2,
+      "issue_number": 5,
       "last_result": {
-        "checked_at": "2026-08-13T19:30:21+00:00",
+        "checked_at": "2026-08-13T19:47:10+00:00",
         "cleartext_urls": [
           "http://icestreaming.rai.it/3.mp3",
           "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast"
@@ -230,7 +230,7 @@
             "http://icestreaming.rai.it/3.mp3",
             "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast"
           ],
-          "response_ms": 664
+          "response_ms": 943
         },
         "outcome": "app-cleartext-http",
         "outcomes": [
@@ -249,15 +249,15 @@
             "http://icestreaming.rai.it/3.mp3",
             "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast"
           ],
-          "response_ms": 636
+          "response_ms": 773
         }
       }
     },
     "splash": {
-      "consecutive_failures": 1,
-      "issue_number": null,
+      "consecutive_failures": 2,
+      "issue_number": 6,
       "last_result": {
-        "checked_at": "2026-08-13T19:30:31+00:00",
+        "checked_at": "2026-08-13T19:47:21+00:00",
         "cleartext_urls": [],
         "healthy": false,
         "ios_probe": {
@@ -270,7 +270,7 @@
           "request_urls": [
             "https://ssl2.azotosolutions.com:1002/stream"
           ],
-          "response_ms": 467
+          "response_ms": 635
         },
         "outcome": "tls-certificate-expiring",
         "outcomes": [
@@ -297,15 +297,15 @@
           "request_urls": [
             "https://ssl2.azotosolutions.com:1002/stream"
           ],
-          "response_ms": 450
+          "response_ms": 577
         }
       }
     },
     "stereosantagata": {
-      "consecutive_failures": 2,
+      "consecutive_failures": 3,
       "issue_number": 2,
       "last_result": {
-        "checked_at": "2026-08-13T19:30:38+00:00",
+        "checked_at": "2026-08-13T19:47:27+00:00",
         "cleartext_urls": [],
         "healthy": false,
         "ios_probe": {
