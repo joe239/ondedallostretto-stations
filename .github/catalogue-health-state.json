@@ -1,3 +1,472 @@
 {
-  "stations": {}
+  "stations": {
+    "amore": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:15+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1776
+      }
+    },
+    "antennastretto": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:21+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 696
+      }
+    },
+    "capital": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:10+00:00",
+        "content_type": "application/vnd.apple.mpegurl",
+        "detail": "HLS media segment",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1100
+      }
+    },
+    "deejay": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:09+00:00",
+        "content_type": "application/vnd.apple.mpegurl",
+        "detail": "HLS media segment",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1131
+      }
+    },
+    "febea": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:19+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 691
+      }
+    },
+    "gammanostop": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:13+00:00",
+        "content_type": "audio/aacp",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1335
+      }
+    },
+    "isoradio": {
+      "consecutive_failures": 1,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": false,
+        "checked_at": "2026-08-13T11:45:22+00:00",
+        "content_type": "text/html",
+        "detail": "initial request returned HTTP 403",
+        "healthy": false,
+        "http_status": 403,
+        "response_ms": 413
+      }
+    },
+    "kisskiss": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:08+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 772
+      }
+    },
+    "m2o": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:15+00:00",
+        "content_type": "application/vnd.apple.mpegurl",
+        "detail": "HLS media segment",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 988
+      }
+    },
+    "maria": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:16+00:00",
+        "content_type": "audio/aacp",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 812
+      }
+    },
+    "medua": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:08+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 692
+      }
+    },
+    "milazzo": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:19+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 346
+      }
+    },
+    "r101": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:13+00:00",
+        "content_type": "audio/aacp",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1015
+      }
+    },
+    "r105": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:22+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1587
+      }
+    },
+    "radicale": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:16+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 996
+      }
+    },
+    "radio24": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:13+00:00",
+        "content_type": "application/x-mpegURL",
+        "detail": "HLS media segment",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 229
+      }
+    },
+    "radiodoc": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:17+00:00",
+        "content_type": "audio/aacp; charset=UTF-8",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 866
+      }
+    },
+    "radiofreccia": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:19+00:00",
+        "content_type": "application/vnd.apple.mpegurl",
+        "detail": "HLS media segment",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 903
+      }
+    },
+    "radioitalia": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:12+00:00",
+        "content_type": "application/x-mpegURL",
+        "detail": "HLS media segment",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 501
+      }
+    },
+    "rai1": {
+      "consecutive_failures": 1,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": false,
+        "checked_at": "2026-08-13T11:45:08+00:00",
+        "content_type": "text/html",
+        "detail": "initial request returned HTTP 403",
+        "healthy": false,
+        "http_status": 403,
+        "response_ms": 938
+      }
+    },
+    "rai2": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:18+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 898
+      }
+    },
+    "rai3": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:13+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 534
+      }
+    },
+    "rcl": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:09+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 731
+      }
+    },
+    "rds": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:14+00:00",
+        "content_type": "application/vnd.apple.mpegurl",
+        "detail": "HLS media segment",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1020
+      }
+    },
+    "ria60": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:24+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1496
+      }
+    },
+    "ricordi": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:09+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 763
+      }
+    },
+    "rmc": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:22+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1889
+      }
+    },
+    "rtl": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:20+00:00",
+        "content_type": "application/vnd.apple.mpegurl",
+        "detail": "HLS media segment",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 919
+      }
+    },
+    "splash": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:18+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 600
+      }
+    },
+    "sportiva": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:08+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 720
+      }
+    },
+    "stereosantagata": {
+      "consecutive_failures": 1,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": false,
+        "checked_at": "2026-08-13T11:45:21+00:00",
+        "content_type": "unknown",
+        "detail": "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, plea",
+        "healthy": false,
+        "http_status": 0,
+        "response_ms": 0
+      }
+    },
+    "taormina": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:22+00:00",
+        "content_type": "audio/aacp",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 757
+      }
+    },
+    "touring104": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:22+00:00",
+        "content_type": "audio/aacp",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1083
+      }
+    },
+    "virgin": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:08+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1807
+      }
+    },
+    "zenith": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:16+00:00",
+        "content_type": "audio/mpeg",
+        "detail": "direct stream",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 772
+      }
+    },
+    "zeta": {
+      "consecutive_failures": 0,
+      "issue_number": null,
+      "last_result": {
+        "audio_bytes_arrived": true,
+        "checked_at": "2026-08-13T11:45:08+00:00",
+        "content_type": "application/vnd.apple.mpegurl",
+        "detail": "HLS media segment",
+        "healthy": true,
+        "http_status": 200,
+        "response_ms": 1100
+      }
+    }
+  }
 }
