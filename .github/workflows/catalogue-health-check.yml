@@ -61,6 +61,7 @@ jobs:
           )
           TLS_EXPIRY_WARNING_DAYS = 30
           STALE_ISSUE_TITLE = "Published catalogue is stale"
+          HEALTH_BULLETIN_TITLE = "Bollettino salute catalogo"
           TLS_CACHE = {}
           TLS_CACHE_LOCK = threading.Lock()
 
@@ -436,18 +437,6 @@ jobs:
               }
 
 
-          def probe_evidence(label, probe):
-              return (
-                  f"- {label} HTTP status: `{probe['http_status']}`\n"
-                  f"- {label} content type: `{probe['content_type']}`\n"
-                  f"- {label} audio bytes arrived: "
-                  f"`{'yes' if probe['audio_bytes_arrived'] else 'no'}`\n"
-                  f"- {label} response time: `{probe['response_ms']} ms`\n"
-                  f"- {label} final URL: {probe['final_url']}\n"
-                  f"- {label} detail: {probe['detail']}"
-              )
-
-
           def formatted_frequency(value):
               if value is None or value == "":
                   return None
@@ -457,54 +446,45 @@ jobs:
                   return None
 
 
-          def issue_title_for(result):
-              frequency = formatted_frequency(result.get("frequency"))
-              return (
-                  f"{result['name']} — {frequency}"
-                  if frequency
-                  else result["name"]
+          def outcome_labels(result):
+              outcomes = result.get("outcomes")
+              if isinstance(outcomes, list):
+                  return sorted(set(outcomes))
+              outcome = result.get("outcome")
+              if outcome and outcome != "healthy":
+                  return [outcome]
+              if result.get("healthy") is False:
+                  return ["stream-failure"]
+              return []
+
+
+          def previous_outcome_labels(stored_station):
+              if not stored_station:
+                  return []
+              return outcome_labels(
+                  stored_station.get("last_result", stored_station)
               )
 
 
-          def result_evidence(result):
-              if "vlc_probe" in result:
-                  tls_evidence = []
-                  for check in result.get("tls_checks", []):
-                      expiry = (
-                          f", expires `{check['expires_at']}`"
-                          if check.get("expires_at")
-                          else ""
-                      )
-                      tls_evidence.append(
-                          f"- TLS `{check['host']}:{check['port']}`: "
-                          f"`{check['status']}`{expiry} — {check['detail']}"
-                      )
-                  cleartext = result.get("cleartext_urls", [])
-                  return (
-                      f"- Timestamp: `{result['checked_at']}`\n"
-                      f"- Outcome label: `{result['outcome']}`\n"
-                      f"- Configured URL: {result['stream_url']}\n"
-                      f"- Cleartext URLs: "
-                      f"{', '.join(cleartext) if cleartext else 'none'}\n\n"
-                      + probe_evidence("VLC", result["vlc_probe"])
-                      + "\n\n"
-                      + probe_evidence("iOS", result["ios_probe"])
-                      + (
-                          "\n\n" + "\n".join(tls_evidence)
-                          if tls_evidence
-                          else ""
-                      )
+          def bulletin_comment(results):
+              lines = [
+                  f"Stato completo al `{utc_now()}`:",
+                  "",
+              ]
+              for result in results:
+                  frequency = formatted_frequency(result.get("frequency"))
+                  station_name = (
+                      f"{result['name']} — {frequency}"
+                      if frequency
+                      else result["name"]
                   )
-
-              return (
-                  f"- Timestamp: `{result['checked_at']}`\n"
-                  "- Outcome label: `stream-failure`\n"
-                  f"- HTTP status: `{result['http_status']}`\n"
-                  f"- Content type: `{result['content_type']}`\n"
-                  f"- Audio bytes arrived: `{'yes' if result['audio_bytes_arrived'] else 'no'}`\n"
-                  f"- Response time: `{result['response_ms']} ms`\n"
-                  f"- Detail: {result['detail']}"
-              )
+                  labels = outcome_labels(result)
+                  status = ", ".join(f"`{label}`" for label in labels)
+                  lines.append(
+                      f"- {station_name}: {status if status else '`healthy`'}"
+                  )
+              lines.extend(["", f"Workflow run: {RUN_URL}"])
+              return "\n".join(lines)
 
 
           published_bytes = fetch(CATALOGUE_URL, seconds=30, maximum_bytes=1048576)
@@ -555,97 +535,46 @@ jobs:
 
           healthy_count = 0
           failing_count = 0
+          state_changed = False
+          next_station_state = {}
           for result in results:
               print(json.dumps(result, ensure_ascii=False, sort_keys=True))
               station_id = result["id"]
-              previous = station_state.get(station_id, {})
-              previous_result = previous.get("last_result")
-              issue_number = previous.get("issue_number")
-              frequency = formatted_frequency(result.get("frequency"))
-              issue_title = issue_title_for(result)
-              station_description = (
-                  f"`{result['name']}` ({frequency})"
-                  if frequency
-                  else f"`{result['name']}`"
-              )
-
               if result["healthy"]:
                   healthy_count += 1
-                  if issue_number:
-                      issue = gh_api(
-                          "GET",
-                          f"repos/{REPOSITORY}/issues/{issue_number}",
-                      )
-                      if issue["state"] == "open":
-                          comment_on_issue(
-                              issue_number,
-                              "The stream recovered.\n\n"
-                              + result_evidence(result)
-                              + f"\n\nWorkflow run: {RUN_URL}",
-                          )
-                          set_issue_state(issue_number, "closed")
-                  consecutive_failures = 0
               else:
                   failing_count += 1
-                  consecutive_failures = int(previous.get("consecutive_failures", 0)) + 1
-                  if consecutive_failures >= 2:
-                      issue = None
-                      if issue_number:
-                          issue = gh_api(
-                              "GET",
-                              f"repos/{REPOSITORY}/issues/{issue_number}",
-                          )
-                      else:
-                          issue = issues_by_title.get(issue_title)
 
-                      if issue is None:
-                          evidence = []
-                          if previous_result and not previous_result.get("healthy", True):
-                              evidence.append(result_evidence(previous_result))
-                          evidence.append(result_evidence(result))
-                          body = (
-                              f"{station_description} reported an unhealthy or "
-                              "app-incompatible outcome on two consecutive daily "
-                              "health checks.\n\n"
-                              + "\n\n".join(evidence)
-                              + f"\n\nStream URL checked: {result['stream_url']}"
-                              + f"\n\nWorkflow run: {RUN_URL}"
-                              + "\n\nThe workflow did not modify the catalogue or replace the stream URL."
-                          )
-                          issue = create_issue(issue_title, body)
-                      else:
-                          issue_number = issue["number"]
-                          if issue["state"] != "open":
-                              issue = set_issue_state(issue_number, "open")
-                          comment_on_issue(
-                              issue_number,
-                              f"Consecutive failure #{consecutive_failures}.\n\n"
-                              + result_evidence(result)
-                              + f"\n\nWorkflow run: {RUN_URL}",
-                          )
-                      issue_number = issue["number"]
+              current_labels = outcome_labels(result)
+              previous_labels = previous_outcome_labels(
+                  station_state.get(station_id)
+              )
+              if current_labels != previous_labels:
+                  state_changed = True
 
-              if result["healthy"]:
-                  station_state.pop(station_id, None)
-              else:
-                  station_state[station_id] = {
-                      "consecutive_failures": consecutive_failures,
-                      "issue_number": issue_number,
-                      "last_result": {
-                          key: result[key]
-                          for key in (
-                              "checked_at",
-                              "outcome",
-                              "outcomes",
-                              "healthy",
-                              "stream_url",
-                              "cleartext_urls",
-                              "tls_checks",
-                              "vlc_probe",
-                              "ios_probe",
-                          )
-                      },
-                  }
+              next_station_state[station_id] = {
+                  "name": result["name"],
+                  "frequency": result.get("frequency"),
+                  "outcome": result["outcome"],
+                  "outcomes": current_labels,
+              }
+
+          if state_changed:
+              bulletin = issues_by_title.get(HEALTH_BULLETIN_TITLE)
+              if bulletin is None:
+                  bulletin = create_issue(
+                      HEALTH_BULLETIN_TITLE,
+                      "Bollettino unico dei cambiamenti di salute e "
+                      "compatibilità del catalogo.",
+                  )
+              elif bulletin["state"] != "open":
+                  bulletin = set_issue_state(bulletin["number"], "open")
+              comment_on_issue(
+                  bulletin["number"],
+                  bulletin_comment(results),
+              )
+
+          state["stations"] = next_station_state
 
           STATE_FILE.write_text(
               json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
