@@ -419,22 +419,25 @@ jobs:
                           )
                       issue_number = issue["number"]
 
-              station_state[station_id] = {
-                  "consecutive_failures": consecutive_failures,
-                  "issue_number": issue_number,
-                  "last_result": {
-                      key: result[key]
-                      for key in (
-                          "checked_at",
-                          "http_status",
-                          "content_type",
-                          "audio_bytes_arrived",
-                          "response_ms",
-                          "healthy",
-                          "detail",
-                      )
-                  },
-              }
+              if result["healthy"]:
+                  station_state.pop(station_id, None)
+              else:
+                  station_state[station_id] = {
+                      "consecutive_failures": consecutive_failures,
+                      "issue_number": issue_number,
+                      "last_result": {
+                          key: result[key]
+                          for key in (
+                              "checked_at",
+                              "http_status",
+                              "content_type",
+                              "audio_bytes_arrived",
+                              "response_ms",
+                              "healthy",
+                              "detail",
+                          )
+                      },
+                  }
 
           STATE_FILE.write_text(
               json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
