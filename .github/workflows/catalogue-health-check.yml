@@ -1,0 +1,460 @@
+name: Daily catalogue health check
+
+on:
+  schedule:
+    - cron: "17 05 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: catalogue-health-check
+  cancel-in-progress: false
+
+jobs:
+  check-catalogue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CATALOGUE_URL: https://ondedallostretto-stations.pages.dev/ondedallostretto_stations.json
+      REPOSITORY_CATALOGUE: ondedallostretto_stations.json
+      STATE_FILE: .github/catalogue-health-state.json
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check published catalogue and station streams
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import concurrent.futures
+          import datetime as dt
+          import hashlib
+          import json
+          import os
+          import re
+          import subprocess
+          import tempfile
+          import urllib.parse
+          from pathlib import Path
+
+          CATALOGUE_URL = os.environ["CATALOGUE_URL"]
+          REPOSITORY_CATALOGUE = Path(os.environ["REPOSITORY_CATALOGUE"])
+          STATE_FILE = Path(os.environ["STATE_FILE"])
+          REPOSITORY = os.environ["GITHUB_REPOSITORY"]
+          RUN_URL = (
+              f"https://github.com/{REPOSITORY}/actions/runs/"
+              f"{os.environ['GITHUB_RUN_ID']}"
+          )
+          USER_AGENT = "VLC/3.0.21 LibVLC/3.0.21"
+          STALE_ISSUE_TITLE = "Published catalogue is stale"
+
+
+          def utc_now():
+              return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
+
+
+          def gh_api(method, endpoint, fields=None, paginate=False):
+              command = ["gh", "api", "--method", method]
+              if paginate:
+                  command.extend(["--paginate", "--slurp"])
+              command.append(endpoint)
+              for key, value in (fields or {}).items():
+                  command.extend(["-f", f"{key}={value}"])
+              result = subprocess.run(
+                  command,
+                  check=True,
+                  capture_output=True,
+                  text=True,
+              )
+              return json.loads(result.stdout) if result.stdout.strip() else None
+
+
+          def all_issues_by_title():
+              pages = gh_api(
+                  "GET",
+                  f"repos/{REPOSITORY}/issues?state=all&per_page=100",
+                  paginate=True,
+              )
+              issues = {}
+              for page in pages:
+                  for issue in page:
+                      if "pull_request" not in issue:
+                          issues.setdefault(issue["title"], issue)
+              return issues
+
+
+          def create_issue(title, body):
+              issue = gh_api(
+                  "POST",
+                  f"repos/{REPOSITORY}/issues",
+                  {"title": title, "body": body},
+              )
+              issues_by_title[title] = issue
+              return issue
+
+
+          def comment_on_issue(number, body):
+              gh_api(
+                  "POST",
+                  f"repos/{REPOSITORY}/issues/{number}/comments",
+                  {"body": body},
+              )
+
+
+          def set_issue_state(number, state):
+              return gh_api(
+                  "PATCH",
+                  f"repos/{REPOSITORY}/issues/{number}",
+                  {"state": state},
+              )
+
+
+          def fetch(url, seconds=8, maximum_bytes=262144):
+              with tempfile.NamedTemporaryFile() as body_file:
+                  write_out = (
+                      "%{http_code}\\t%{content_type}\\t%{time_starttransfer}"
+                      "\\t%{time_total}\\t%{url_effective}"
+                  )
+                  command = [
+                      "curl",
+                      "--location",
+                      "--silent",
+                      "--show-error",
+                      "--connect-timeout",
+                      "7",
+                      "--max-time",
+                      str(seconds),
+                      "--max-filesize",
+                      str(maximum_bytes),
+                      "--user-agent",
+                      USER_AGENT,
+                      "--header",
+                      "Icy-MetaData: 1",
+                      "--header",
+                      (
+                          "Accept: audio/aac,audio/mpeg,audio/ogg,"
+                          "application/vnd.apple.mpegurl,application/x-mpegURL,"
+                          "*/*;q=0.8"
+                      ),
+                      "--output",
+                      body_file.name,
+                      "--write-out",
+                      write_out,
+                      url,
+                  ]
+                  result = subprocess.run(command, capture_output=True, text=True)
+                  body = Path(body_file.name).read_bytes()
+
+              parts = result.stdout.rsplit("\n", 1)[-1].split("\t", 4)
+              if len(parts) != 5:
+                  parts = ["0", "", "0", "0", url]
+              status, content_type, first_byte, total, effective_url = parts
+              return {
+                  "status": int(status or 0),
+                  "content_type": content_type or "unknown",
+                  "response_ms": round(float(first_byte or 0) * 1000),
+                  "total_ms": round(float(total or 0) * 1000),
+                  "effective_url": effective_url,
+                  "body": body,
+                  "curl_error": result.stderr.strip(),
+              }
+
+
+          def is_playlist(response):
+              content_type = response["content_type"].lower()
+              prefix = response["body"][:64].lstrip(b"\xef\xbb\xbf \t\r\n")
+              return (
+                  prefix.startswith(b"#EXTM3U")
+                  or "mpegurl" in content_type
+                  or response["effective_url"].lower().split("?", 1)[0].endswith(".m3u8")
+              )
+
+
+          def playlist_target(body, base_url):
+              text = body.decode("utf-8", errors="replace")
+              lines = [line.strip() for line in text.splitlines() if line.strip()]
+
+              for line in lines:
+                  if line.startswith("#EXT-X-MEDIA:") and "TYPE=AUDIO" in line:
+                      match = re.search(r'URI="([^"]+)"', line)
+                      if match:
+                          return urllib.parse.urljoin(base_url, match.group(1))
+
+              for index, line in enumerate(lines):
+                  if line.startswith("#EXT-X-STREAM-INF:"):
+                      for candidate in lines[index + 1:]:
+                          if not candidate.startswith("#"):
+                              return urllib.parse.urljoin(base_url, candidate)
+
+              segment_candidates = [line for line in lines if not line.startswith("#")]
+              if segment_candidates:
+                  return urllib.parse.urljoin(base_url, segment_candidates[-1])
+
+              for line in lines:
+                  if line.startswith(("#EXT-X-MAP:", "#EXT-X-PART:")):
+                      match = re.search(r'URI="([^"]+)"', line)
+                      if match:
+                          return urllib.parse.urljoin(base_url, match.group(1))
+              return None
+
+
+          def has_audio_bytes(body, content_type):
+              if len(body) < 1024:
+                  return False
+              leading = body[:256].lstrip().lower()
+              if leading.startswith((b"<html", b"<!doctype", b"<?xml", b"{", b"[")):
+                  return False
+
+              lowered_type = content_type.lower()
+              audio_type = (
+                  lowered_type.startswith("audio/")
+                  or lowered_type.startswith("video/mp2t")
+                  or any(
+                      marker in lowered_type
+                      for marker in ("application/ogg", "application/octet-stream", "video/mp4")
+                  )
+              )
+              magic = (
+                  body.startswith((b"ID3", b"OggS", b"fLaC"))
+                  or b"ftyp" in body[:64]
+                  or b"moof" in body[:64]
+                  or any(
+                      body[index] == 0xFF and body[index + 1] & 0xE0 == 0xE0
+                      for index in range(min(len(body) - 1, 8192))
+                  )
+                  or any(
+                      offset + 188 < len(body)
+                      and body[offset] == 0x47
+                      and body[offset + 188] == 0x47
+                      for offset in range(min(len(body), 188))
+                  )
+              )
+              return audio_type or magic
+
+
+          def probe_station(station):
+              checked_at = utc_now()
+              initial = fetch(station["streamURL"])
+              audio_response = initial
+              detail = "direct stream"
+
+              if 200 <= initial["status"] < 300 and is_playlist(initial):
+                  detail = "HLS playlist"
+                  current = initial
+                  for _ in range(3):
+                      target = playlist_target(current["body"], current["effective_url"])
+                      if not target:
+                          detail = "HLS playlist contained no playable target"
+                          audio_response = {**current, "body": b""}
+                          break
+                      current = fetch(target)
+                      audio_response = current
+                      if not is_playlist(current):
+                          detail = "HLS media segment"
+                          break
+
+              audio_arrived = (
+                  200 <= audio_response["status"] < 300
+                  and has_audio_bytes(
+                      audio_response["body"],
+                      audio_response["content_type"],
+                  )
+              )
+              healthy = 200 <= initial["status"] < 300 and audio_arrived
+              if not healthy:
+                  errors = [
+                      error
+                      for error in (initial["curl_error"], audio_response["curl_error"])
+                      if error
+                  ]
+                  if errors:
+                      detail = errors[-1][:300]
+                  elif not 200 <= initial["status"] < 300:
+                      detail = f"initial request returned HTTP {initial['status']}"
+                  elif not audio_arrived:
+                      detail = "no audio bytes detected"
+
+              return {
+                  "id": station["id"],
+                  "name": station["name"],
+                  "frequency": station["frequency"],
+                  "stream_url": station["streamURL"],
+                  "checked_at": checked_at,
+                  "http_status": initial["status"],
+                  "content_type": initial["content_type"],
+                  "audio_bytes_arrived": audio_arrived,
+                  "response_ms": initial["response_ms"],
+                  "healthy": healthy,
+                  "detail": detail,
+              }
+
+
+          def result_evidence(result):
+              return (
+                  f"- Timestamp: `{result['checked_at']}`\n"
+                  f"- HTTP status: `{result['http_status']}`\n"
+                  f"- Content type: `{result['content_type']}`\n"
+                  f"- Audio bytes arrived: `{'yes' if result['audio_bytes_arrived'] else 'no'}`\n"
+                  f"- Response time: `{result['response_ms']} ms`\n"
+                  f"- Detail: {result['detail']}"
+              )
+
+
+          published_bytes = fetch(CATALOGUE_URL, seconds=30, maximum_bytes=1048576)
+          if not 200 <= published_bytes["status"] < 300:
+              raise RuntimeError(
+                  f"Catalogue download returned HTTP {published_bytes['status']}: "
+                  f"{published_bytes['curl_error']}"
+              )
+          try:
+              published_catalogue = json.loads(published_bytes["body"])
+              repository_catalogue = json.loads(REPOSITORY_CATALOGUE.read_text())
+          except json.JSONDecodeError as error:
+              raise RuntimeError(f"Catalogue is not valid JSON: {error}") from error
+          if not isinstance(published_catalogue, list):
+              raise RuntimeError("Published catalogue is not a JSON array")
+
+          issues_by_title = all_issues_by_title()
+
+          if published_catalogue != repository_catalogue:
+              published_hash = hashlib.sha256(published_bytes["body"]).hexdigest()
+              repository_hash = hashlib.sha256(REPOSITORY_CATALOGUE.read_bytes()).hexdigest()
+              mismatch_body = (
+                  f"The catalogue downloaded by the apps differs from "
+                  f"`{REPOSITORY_CATALOGUE}` on `main`.\n\n"
+                  f"- Detected: `{utc_now()}`\n"
+                  f"- Published URL: {CATALOGUE_URL}\n"
+                  f"- Published SHA-256: `{published_hash}`\n"
+                  f"- Repository SHA-256: `{repository_hash}`\n"
+                  f"- Workflow run: {RUN_URL}\n\n"
+                  "The published copy may be stale. The workflow did not change either copy."
+              )
+              existing = issues_by_title.get(STALE_ISSUE_TITLE)
+              if existing:
+                  if existing["state"] != "open":
+                      existing = set_issue_state(existing["number"], "open")
+                  comment_on_issue(existing["number"], mismatch_body)
+              else:
+                  create_issue(STALE_ISSUE_TITLE, mismatch_body)
+
+          if STATE_FILE.exists():
+              state = json.loads(STATE_FILE.read_text())
+          else:
+              state = {"stations": {}}
+          station_state = state.setdefault("stations", {})
+
+          with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
+              results = list(executor.map(probe_station, published_catalogue))
+
+          healthy_count = 0
+          failing_count = 0
+          for result in results:
+              print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+              station_id = result["id"]
+              previous = station_state.get(station_id, {})
+              previous_result = previous.get("last_result")
+              issue_number = previous.get("issue_number")
+              frequency = f"{float(result['frequency']):.1f} MHz"
+              issue_title = f"Stream failure: {result['name']} — {frequency}"
+
+              if result["healthy"]:
+                  healthy_count += 1
+                  if issue_number:
+                      issue = gh_api(
+                          "GET",
+                          f"repos/{REPOSITORY}/issues/{issue_number}",
+                      )
+                      if issue["state"] == "open":
+                          comment_on_issue(
+                              issue_number,
+                              "The stream recovered.\n\n"
+                              + result_evidence(result)
+                              + f"\n\nWorkflow run: {RUN_URL}",
+                          )
+                          set_issue_state(issue_number, "closed")
+                  consecutive_failures = 0
+              else:
+                  failing_count += 1
+                  consecutive_failures = int(previous.get("consecutive_failures", 0)) + 1
+                  if consecutive_failures >= 2:
+                      issue = None
+                      if issue_number:
+                          issue = gh_api(
+                              "GET",
+                              f"repos/{REPOSITORY}/issues/{issue_number}",
+                          )
+                      else:
+                          issue = issues_by_title.get(issue_title)
+
+                      if issue is None:
+                          evidence = []
+                          if previous_result and not previous_result.get("healthy", True):
+                              evidence.append(result_evidence(previous_result))
+                          evidence.append(result_evidence(result))
+                          body = (
+                              f"`{result['name']}` ({frequency}) failed on two "
+                              "consecutive daily health checks.\n\n"
+                              + "\n\n".join(evidence)
+                              + f"\n\nStream URL checked: {result['stream_url']}"
+                              + f"\n\nWorkflow run: {RUN_URL}"
+                              + "\n\nThe workflow did not modify the catalogue or replace the stream URL."
+                          )
+                          issue = create_issue(issue_title, body)
+                      else:
+                          issue_number = issue["number"]
+                          if issue["state"] != "open":
+                              issue = set_issue_state(issue_number, "open")
+                          comment_on_issue(
+                              issue_number,
+                              f"Consecutive failure #{consecutive_failures}.\n\n"
+                              + result_evidence(result)
+                              + f"\n\nWorkflow run: {RUN_URL}",
+                          )
+                      issue_number = issue["number"]
+
+              station_state[station_id] = {
+                  "consecutive_failures": consecutive_failures,
+                  "issue_number": issue_number,
+                  "last_result": {
+                      key: result[key]
+                      for key in (
+                          "checked_at",
+                          "http_status",
+                          "content_type",
+                          "audio_bytes_arrived",
+                          "response_ms",
+                          "healthy",
+                          "detail",
+                      )
+                  },
+              }
+
+          STATE_FILE.write_text(
+              json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+          )
+          print(
+              f"SUMMARY checked={len(results)} healthy={healthy_count} "
+              f"failing={failing_count}"
+          )
+          PY
+
+      - name: Commit health state
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$STATE_FILE"
+          if git diff --cached --quiet; then
+            echo "Health state is unchanged."
+            exit 0
+          fi
+          git commit -m "Update catalogue health state"
+          git pull --rebase origin main
+          git push origin HEAD:main
