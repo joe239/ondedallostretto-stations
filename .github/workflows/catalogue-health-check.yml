@@ -39,8 +39,11 @@ jobs:
           import json
           import os
           import re
+          import socket
+          import ssl
           import subprocess
           import tempfile
+          import threading
           import urllib.parse
           from pathlib import Path
 
@@ -52,8 +55,14 @@ jobs:
               f"https://github.com/{REPOSITORY}/actions/runs/"
               f"{os.environ['GITHUB_RUN_ID']}"
           )
-          USER_AGENT = "VLC/3.0.21 LibVLC/3.0.21"
+          VLC_USER_AGENT = "VLC/3.0.21 LibVLC/3.0.21"
+          IOS_USER_AGENT = (
+              "AppleCoreMedia/1.0.0 (iPhone; U; CPU OS 18_0 like Mac OS X)"
+          )
+          TLS_EXPIRY_WARNING_DAYS = 30
           STALE_ISSUE_TITLE = "Published catalogue is stale"
+          TLS_CACHE = {}
+          TLS_CACHE_LOCK = threading.Lock()
 
 
           def utc_now():
@@ -116,7 +125,12 @@ jobs:
               )
 
 
-          def fetch(url, seconds=8, maximum_bytes=262144):
+          def fetch(
+              url,
+              user_agent=VLC_USER_AGENT,
+              seconds=8,
+              maximum_bytes=262144,
+          ):
               with tempfile.NamedTemporaryFile() as body_file:
                   write_out = (
                       "%{http_code}\\t%{content_type}\\t%{time_starttransfer}"
@@ -134,7 +148,7 @@ jobs:
                       "--max-filesize",
                       str(maximum_bytes),
                       "--user-agent",
-                      USER_AGENT,
+                      user_agent,
                       "--header",
                       "Icy-MetaData: 1",
                       "--header",
@@ -239,11 +253,11 @@ jobs:
               return audio_type or magic
 
 
-          def probe_station(station):
-              checked_at = utc_now()
-              initial = fetch(station["streamURL"])
+          def probe_stream(stream_url, user_agent):
+              initial = fetch(stream_url, user_agent=user_agent)
               audio_response = initial
               detail = "direct stream"
+              request_urls = [stream_url, initial["effective_url"]]
 
               if 200 <= initial["status"] < 300 and is_playlist(initial):
                   detail = "HLS playlist"
@@ -254,7 +268,8 @@ jobs:
                           detail = "HLS playlist contained no playable target"
                           audio_response = {**current, "body": b""}
                           break
-                      current = fetch(target)
+                      current = fetch(target, user_agent=user_agent)
+                      request_urls.extend([target, current["effective_url"]])
                       audio_response = current
                       if not is_playlist(current):
                           detail = "HLS media segment"
@@ -282,23 +297,208 @@ jobs:
                       detail = "no audio bytes detected"
 
               return {
-                  "id": station["id"],
-                  "name": station["name"],
-                  "frequency": station["frequency"],
-                  "stream_url": station["streamURL"],
-                  "checked_at": checked_at,
                   "http_status": initial["status"],
                   "content_type": initial["content_type"],
                   "audio_bytes_arrived": audio_arrived,
                   "response_ms": initial["response_ms"],
                   "healthy": healthy,
                   "detail": detail,
+                  "final_url": audio_response["effective_url"],
+                  "request_urls": list(dict.fromkeys(filter(None, request_urls))),
               }
 
 
+          def inspect_tls(url):
+              parsed = urllib.parse.urlsplit(url)
+              if parsed.scheme.lower() != "https" or not parsed.hostname:
+                  return None
+
+              port = parsed.port or 443
+              endpoint = (parsed.hostname, port)
+              with TLS_CACHE_LOCK:
+                  cached = TLS_CACHE.get(endpoint)
+              if cached is not None:
+                  return cached
+
+              check = {
+                  "host": parsed.hostname,
+                  "port": port,
+                  "status": "valid",
+                  "expires_at": None,
+                  "days_remaining": None,
+                  "detail": "certificate chain verified",
+              }
+              try:
+                  context = ssl.create_default_context()
+                  with socket.create_connection(endpoint, timeout=7) as connection:
+                      with context.wrap_socket(
+                          connection,
+                          server_hostname=parsed.hostname,
+                      ) as tls_connection:
+                          certificate = tls_connection.getpeercert()
+
+                  expires_at = dt.datetime.fromtimestamp(
+                      ssl.cert_time_to_seconds(certificate["notAfter"]),
+                      tz=dt.timezone.utc,
+                  )
+                  remaining = expires_at - dt.datetime.now(dt.timezone.utc)
+                  check["expires_at"] = expires_at.replace(microsecond=0).isoformat()
+                  check["days_remaining"] = round(
+                      remaining.total_seconds() / 86400,
+                      1,
+                  )
+                  if remaining.total_seconds() <= 0:
+                      check["status"] = "expired"
+                      check["detail"] = "TLS certificate has expired"
+                  elif remaining <= dt.timedelta(days=TLS_EXPIRY_WARNING_DAYS):
+                      check["status"] = "expiring"
+                      check["detail"] = (
+                          "TLS certificate expires within "
+                          f"{TLS_EXPIRY_WARNING_DAYS} days"
+                      )
+              except ssl.SSLCertVerificationError as error:
+                  message = error.verify_message or str(error)
+                  check["status"] = (
+                      "expired" if "expired" in message.lower() else "invalid_chain"
+                  )
+                  check["detail"] = message
+              except (OSError, TimeoutError, ssl.SSLError) as error:
+                  check["status"] = "unavailable"
+                  check["detail"] = str(error)
+
+              with TLS_CACHE_LOCK:
+                  TLS_CACHE.setdefault(endpoint, check)
+                  return TLS_CACHE[endpoint]
+
+
+          def probe_station(station):
+              checked_at = utc_now()
+              stream_url = station["streamURL"]
+              vlc_probe = probe_stream(stream_url, VLC_USER_AGENT)
+              ios_probe = probe_stream(stream_url, IOS_USER_AGENT)
+
+              compatibility_urls = list(
+                  dict.fromkeys(
+                      filter(
+                          None,
+                          [stream_url]
+                          + vlc_probe["request_urls"]
+                          + ios_probe["request_urls"],
+                      )
+                  )
+              )
+              cleartext_urls = [
+                  url
+                  for url in compatibility_urls
+                  if urllib.parse.urlsplit(url).scheme.lower() == "http"
+              ]
+              tls_checks = []
+              checked_endpoints = set()
+              for url in compatibility_urls:
+                  tls_check = inspect_tls(url)
+                  if tls_check is None:
+                      continue
+                  endpoint = (tls_check["host"], tls_check["port"])
+                  if endpoint not in checked_endpoints:
+                      tls_checks.append(tls_check)
+                      checked_endpoints.add(endpoint)
+
+              tls_statuses = {check["status"] for check in tls_checks}
+              outcomes = []
+              if cleartext_urls:
+                  outcomes.append("app-cleartext-http")
+              if "expired" in tls_statuses:
+                  outcomes.append("tls-certificate-expired")
+              if "invalid_chain" in tls_statuses:
+                  outcomes.append("tls-chain-invalid")
+              if "expiring" in tls_statuses:
+                  outcomes.append("tls-certificate-expiring")
+
+              if vlc_probe["healthy"] and not ios_probe["healthy"]:
+                  outcomes.append("ios-user-agent-rejected")
+              elif not ios_probe["healthy"] and not outcomes:
+                  outcomes.append("stream-failure")
+
+              outcome = outcomes[0] if outcomes else "healthy"
+              return {
+                  "id": station["id"],
+                  "name": station["name"],
+                  "frequency": station.get("frequency"),
+                  "stream_url": stream_url,
+                  "checked_at": checked_at,
+                  "outcome": outcome,
+                  "outcomes": outcomes,
+                  "healthy": outcome == "healthy",
+                  "cleartext_urls": cleartext_urls,
+                  "tls_checks": tls_checks,
+                  "vlc_probe": vlc_probe,
+                  "ios_probe": ios_probe,
+              }
+
+
+          def probe_evidence(label, probe):
+              return (
+                  f"- {label} HTTP status: `{probe['http_status']}`\n"
+                  f"- {label} content type: `{probe['content_type']}`\n"
+                  f"- {label} audio bytes arrived: "
+                  f"`{'yes' if probe['audio_bytes_arrived'] else 'no'}`\n"
+                  f"- {label} response time: `{probe['response_ms']} ms`\n"
+                  f"- {label} final URL: {probe['final_url']}\n"
+                  f"- {label} detail: {probe['detail']}"
+              )
+
+
+          def formatted_frequency(value):
+              if value is None or value == "":
+                  return None
+              try:
+                  return f"{float(value):.1f} MHz"
+              except (TypeError, ValueError):
+                  return None
+
+
+          def issue_title_for(result):
+              frequency = formatted_frequency(result.get("frequency"))
+              return (
+                  f"{result['name']} — {frequency}"
+                  if frequency
+                  else result["name"]
+              )
+
+
           def result_evidence(result):
+              if "vlc_probe" in result:
+                  tls_evidence = []
+                  for check in result.get("tls_checks", []):
+                      expiry = (
+                          f", expires `{check['expires_at']}`"
+                          if check.get("expires_at")
+                          else ""
+                      )
+                      tls_evidence.append(
+                          f"- TLS `{check['host']}:{check['port']}`: "
+                          f"`{check['status']}`{expiry} — {check['detail']}"
+                      )
+                  cleartext = result.get("cleartext_urls", [])
+                  return (
+                      f"- Timestamp: `{result['checked_at']}`\n"
+                      f"- Outcome label: `{result['outcome']}`\n"
+                      f"- Configured URL: {result['stream_url']}\n"
+                      f"- Cleartext URLs: "
+                      f"{', '.join(cleartext) if cleartext else 'none'}\n\n"
+                      + probe_evidence("VLC", result["vlc_probe"])
+                      + "\n\n"
+                      + probe_evidence("iOS", result["ios_probe"])
+                      + (
+                          "\n\n" + "\n".join(tls_evidence)
+                          if tls_evidence
+                          else ""
+                      )
+                  )
+
               return (
                   f"- Timestamp: `{result['checked_at']}`\n"
+                  "- Outcome label: `stream-failure`\n"
                   f"- HTTP status: `{result['http_status']}`\n"
                   f"- Content type: `{result['content_type']}`\n"
                   f"- Audio bytes arrived: `{'yes' if result['audio_bytes_arrived'] else 'no'}`\n"
@@ -361,8 +561,13 @@ jobs:
               previous = station_state.get(station_id, {})
               previous_result = previous.get("last_result")
               issue_number = previous.get("issue_number")
-              frequency = f"{float(result['frequency']):.1f} MHz"
-              issue_title = f"Stream failure: {result['name']} — {frequency}"
+              frequency = formatted_frequency(result.get("frequency"))
+              issue_title = issue_title_for(result)
+              station_description = (
+                  f"`{result['name']}` ({frequency})"
+                  if frequency
+                  else f"`{result['name']}`"
+              )
 
               if result["healthy"]:
                   healthy_count += 1
@@ -399,8 +604,9 @@ jobs:
                               evidence.append(result_evidence(previous_result))
                           evidence.append(result_evidence(result))
                           body = (
-                              f"`{result['name']}` ({frequency}) failed on two "
-                              "consecutive daily health checks.\n\n"
+                              f"{station_description} reported an unhealthy or "
+                              "app-incompatible outcome on two consecutive daily "
+                              "health checks.\n\n"
                               + "\n\n".join(evidence)
                               + f"\n\nStream URL checked: {result['stream_url']}"
                               + f"\n\nWorkflow run: {RUN_URL}"
@@ -429,12 +635,14 @@ jobs:
                           key: result[key]
                           for key in (
                               "checked_at",
-                              "http_status",
-                              "content_type",
-                              "audio_bytes_arrived",
-                              "response_ms",
+                              "outcome",
+                              "outcomes",
                               "healthy",
-                              "detail",
+                              "stream_url",
+                              "cleartext_urls",
+                              "tls_checks",
+                              "vlc_probe",
+                              "ios_probe",
                           )
                       },
                   }
