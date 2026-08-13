@@ -1,42 +1,352 @@
 {
   "stations": {
     "isoradio": {
+      "consecutive_failures": 2,
+      "issue_number": 3,
+      "last_result": {
+        "checked_at": "2026-08-13T19:30:39+00:00",
+        "cleartext_urls": [
+          "http://icestreaming.rai.it/6.mp3"
+        ],
+        "healthy": false,
+        "ios_probe": {
+          "audio_bytes_arrived": true,
+          "content_type": "audio/mpeg",
+          "detail": "direct stream",
+          "final_url": "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S3822289/9T4F68Q3TT4m/icecast",
+          "healthy": true,
+          "http_status": 200,
+          "request_urls": [
+            "http://icestreaming.rai.it/6.mp3",
+            "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S3822289/9T4F68Q3TT4m/icecast"
+          ],
+          "response_ms": 709
+        },
+        "outcome": "app-cleartext-http",
+        "outcomes": [
+          "app-cleartext-http"
+        ],
+        "stream_url": "http://icestreaming.rai.it/6.mp3",
+        "tls_checks": [
+          {
+            "days_remaining": 86.2,
+            "detail": "certificate chain verified",
+            "expires_at": "2026-11-07T23:59:59+00:00",
+            "host": "mediapolis.rai.it",
+            "port": 443,
+            "status": "valid"
+          },
+          {
+            "days_remaining": 107.2,
+            "detail": "certificate chain verified",
+            "expires_at": "2026-11-28T23:59:59+00:00",
+            "host": "icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net",
+            "port": 443,
+            "status": "valid"
+          }
+        ],
+        "vlc_probe": {
+          "audio_bytes_arrived": false,
+          "content_type": "text/html",
+          "detail": "initial request returned HTTP 403",
+          "final_url": "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=6794912",
+          "healthy": false,
+          "http_status": 403,
+          "request_urls": [
+            "http://icestreaming.rai.it/6.mp3",
+            "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=6794912"
+          ],
+          "response_ms": 700
+        }
+      }
+    },
+    "medua": {
       "consecutive_failures": 1,
       "issue_number": null,
       "last_result": {
-        "audio_bytes_arrived": false,
-        "checked_at": "2026-08-13T11:45:22+00:00",
-        "content_type": "text/html",
-        "detail": "initial request returned HTTP 403",
+        "checked_at": "2026-08-13T19:30:11+00:00",
+        "cleartext_urls": [],
         "healthy": false,
-        "http_status": 403,
-        "response_ms": 413
+        "ios_probe": {
+          "audio_bytes_arrived": true,
+          "content_type": "audio/mpeg",
+          "detail": "direct stream",
+          "final_url": "https://ssl1.azotosolutions.com:1030/1",
+          "healthy": true,
+          "http_status": 200,
+          "request_urls": [
+            "https://ssl1.azotosolutions.com:1030/1"
+          ],
+          "response_ms": 485
+        },
+        "outcome": "tls-certificate-expiring",
+        "outcomes": [
+          "tls-certificate-expiring"
+        ],
+        "stream_url": "https://ssl1.azotosolutions.com:1030/1",
+        "tls_checks": [
+          {
+            "days_remaining": 9.7,
+            "detail": "TLS certificate expires within 30 days",
+            "expires_at": "2026-08-23T11:38:23+00:00",
+            "host": "ssl1.azotosolutions.com",
+            "port": 1030,
+            "status": "expiring"
+          }
+        ],
+        "vlc_probe": {
+          "audio_bytes_arrived": true,
+          "content_type": "audio/mpeg",
+          "detail": "direct stream",
+          "final_url": "https://ssl1.azotosolutions.com:1030/1",
+          "healthy": true,
+          "http_status": 200,
+          "request_urls": [
+            "https://ssl1.azotosolutions.com:1030/1"
+          ],
+          "response_ms": 424
+        }
+      }
+    },
+    "milazzo": {
+      "consecutive_failures": 1,
+      "issue_number": null,
+      "last_result": {
+        "checked_at": "2026-08-13T19:30:34+00:00",
+        "cleartext_urls": [
+          "http://51.254.76.66:8012/;stream.mp3"
+        ],
+        "healthy": false,
+        "ios_probe": {
+          "audio_bytes_arrived": true,
+          "content_type": "audio/mpeg",
+          "detail": "direct stream",
+          "final_url": "http://51.254.76.66:8012/;stream.mp3",
+          "healthy": true,
+          "http_status": 200,
+          "request_urls": [
+            "http://51.254.76.66:8012/;stream.mp3"
+          ],
+          "response_ms": 278
+        },
+        "outcome": "app-cleartext-http",
+        "outcomes": [
+          "app-cleartext-http"
+        ],
+        "stream_url": "http://51.254.76.66:8012/;stream.mp3",
+        "tls_checks": [],
+        "vlc_probe": {
+          "audio_bytes_arrived": true,
+          "content_type": "audio/mpeg",
+          "detail": "direct stream",
+          "final_url": "http://51.254.76.66:8012/;stream.mp3",
+          "healthy": true,
+          "http_status": 200,
+          "request_urls": [
+            "http://51.254.76.66:8012/;stream.mp3"
+          ],
+          "response_ms": 286
+        }
       }
     },
     "rai1": {
+      "consecutive_failures": 2,
+      "issue_number": 1,
+      "last_result": {
+        "checked_at": "2026-08-13T19:30:11+00:00",
+        "cleartext_urls": [
+          "http://icestreaming.rai.it/1.mp3"
+        ],
+        "healthy": false,
+        "ios_probe": {
+          "audio_bytes_arrived": true,
+          "content_type": "audio/mpeg",
+          "detail": "direct stream",
+          "final_url": "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S18493106/rCMKqdMFKPBB/icecast",
+          "healthy": true,
+          "http_status": 200,
+          "request_urls": [
+            "http://icestreaming.rai.it/1.mp3",
+            "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S18493106/rCMKqdMFKPBB/icecast"
+          ],
+          "response_ms": 1096
+        },
+        "outcome": "app-cleartext-http",
+        "outcomes": [
+          "app-cleartext-http"
+        ],
+        "stream_url": "http://icestreaming.rai.it/1.mp3",
+        "tls_checks": [
+          {
+            "days_remaining": 86.2,
+            "detail": "certificate chain verified",
+            "expires_at": "2026-11-07T23:59:59+00:00",
+            "host": "mediapolis.rai.it",
+            "port": 443,
+            "status": "valid"
+          },
+          {
+            "days_remaining": 107.2,
+            "detail": "certificate chain verified",
+            "expires_at": "2026-11-28T23:59:59+00:00",
+            "host": "icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net",
+            "port": 443,
+            "status": "valid"
+          }
+        ],
+        "vlc_probe": {
+          "audio_bytes_arrived": false,
+          "content_type": "text/html",
+          "detail": "initial request returned HTTP 403",
+          "final_url": "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=3573854",
+          "healthy": false,
+          "http_status": 403,
+          "request_urls": [
+            "http://icestreaming.rai.it/1.mp3",
+            "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=3573854"
+          ],
+          "response_ms": 1181
+        }
+      }
+    },
+    "rai3": {
       "consecutive_failures": 1,
       "issue_number": null,
       "last_result": {
-        "audio_bytes_arrived": false,
-        "checked_at": "2026-08-13T11:45:08+00:00",
-        "content_type": "text/html",
-        "detail": "initial request returned HTTP 403",
+        "checked_at": "2026-08-13T19:30:21+00:00",
+        "cleartext_urls": [
+          "http://icestreaming.rai.it/3.mp3",
+          "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast"
+        ],
         "healthy": false,
-        "http_status": 403,
-        "response_ms": 938
+        "ios_probe": {
+          "audio_bytes_arrived": true,
+          "content_type": "audio/mpeg",
+          "detail": "direct stream",
+          "final_url": "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast",
+          "healthy": true,
+          "http_status": 200,
+          "request_urls": [
+            "http://icestreaming.rai.it/3.mp3",
+            "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast"
+          ],
+          "response_ms": 664
+        },
+        "outcome": "app-cleartext-http",
+        "outcomes": [
+          "app-cleartext-http"
+        ],
+        "stream_url": "http://icestreaming.rai.it/3.mp3",
+        "tls_checks": [],
+        "vlc_probe": {
+          "audio_bytes_arrived": true,
+          "content_type": "audio/mpeg",
+          "detail": "direct stream",
+          "final_url": "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast",
+          "healthy": true,
+          "http_status": 200,
+          "request_urls": [
+            "http://icestreaming.rai.it/3.mp3",
+            "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast"
+          ],
+          "response_ms": 636
+        }
+      }
+    },
+    "splash": {
+      "consecutive_failures": 1,
+      "issue_number": null,
+      "last_result": {
+        "checked_at": "2026-08-13T19:30:31+00:00",
+        "cleartext_urls": [],
+        "healthy": false,
+        "ios_probe": {
+          "audio_bytes_arrived": true,
+          "content_type": "audio/mpeg",
+          "detail": "direct stream",
+          "final_url": "https://ssl2.azotosolutions.com:1002/stream",
+          "healthy": true,
+          "http_status": 200,
+          "request_urls": [
+            "https://ssl2.azotosolutions.com:1002/stream"
+          ],
+          "response_ms": 467
+        },
+        "outcome": "tls-certificate-expiring",
+        "outcomes": [
+          "tls-certificate-expiring"
+        ],
+        "stream_url": "https://ssl2.azotosolutions.com:1002/stream",
+        "tls_checks": [
+          {
+            "days_remaining": 19.6,
+            "detail": "TLS certificate expires within 30 days",
+            "expires_at": "2026-09-02T09:56:51+00:00",
+            "host": "ssl2.azotosolutions.com",
+            "port": 1002,
+            "status": "expiring"
+          }
+        ],
+        "vlc_probe": {
+          "audio_bytes_arrived": true,
+          "content_type": "audio/mpeg",
+          "detail": "direct stream",
+          "final_url": "https://ssl2.azotosolutions.com:1002/stream",
+          "healthy": true,
+          "http_status": 200,
+          "request_urls": [
+            "https://ssl2.azotosolutions.com:1002/stream"
+          ],
+          "response_ms": 450
+        }
       }
     },
     "stereosantagata": {
-      "consecutive_failures": 1,
-      "issue_number": null,
+      "consecutive_failures": 2,
+      "issue_number": 2,
       "last_result": {
-        "audio_bytes_arrived": false,
-        "checked_at": "2026-08-13T11:45:21+00:00",
-        "content_type": "unknown",
-        "detail": "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, plea",
+        "checked_at": "2026-08-13T19:30:38+00:00",
+        "cleartext_urls": [],
         "healthy": false,
-        "http_status": 0,
-        "response_ms": 0
+        "ios_probe": {
+          "audio_bytes_arrived": false,
+          "content_type": "unknown",
+          "detail": "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, plea",
+          "final_url": "https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037",
+          "healthy": false,
+          "http_status": 0,
+          "request_urls": [
+            "https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037"
+          ],
+          "response_ms": 0
+        },
+        "outcome": "tls-chain-invalid",
+        "outcomes": [
+          "tls-chain-invalid"
+        ],
+        "stream_url": "https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037",
+        "tls_checks": [
+          {
+            "days_remaining": null,
+            "detail": "unable to get local issuer certificate",
+            "expires_at": null,
+            "host": "radiostereo103.no-ip.biz",
+            "port": 8002,
+            "status": "invalid_chain"
+          }
+        ],
+        "vlc_probe": {
+          "audio_bytes_arrived": false,
+          "content_type": "unknown",
+          "detail": "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, plea",
+          "final_url": "https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037",
+          "healthy": false,
+          "http_status": 0,
+          "request_urls": [
+            "https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037"
+          ],
+          "response_ms": 0
+        }
       }
     }
   }
