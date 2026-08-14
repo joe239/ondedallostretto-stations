@@ -1,353 +1,234 @@
 {
   "stations": {
+    "amore": {
+      "frequency": 95.5,
+      "name": "Radio Amore",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "antennastretto": {
+      "frequency": 102.8,
+      "name": "Antenna dello Stretto",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "capital": {
+      "frequency": 90.6,
+      "name": "Radio Capital",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "deejay": {
+      "frequency": 90.4,
+      "name": "Radio Deejay",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "febea": {
+      "frequency": 100.6,
+      "name": "Radio Antenna Febea",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "gammanostop": {
+      "frequency": 92.5,
+      "name": "Radio Gamma No Stop",
+      "outcome": "healthy",
+      "outcomes": []
+    },
     "isoradio": {
-      "consecutive_failures": 3,
-      "issue_number": 3,
-      "last_result": {
-        "checked_at": "2026-08-13T19:47:28+00:00",
-        "cleartext_urls": [
-          "http://icestreaming.rai.it/6.mp3"
-        ],
-        "healthy": false,
-        "ios_probe": {
-          "audio_bytes_arrived": true,
-          "content_type": "audio/mpeg",
-          "detail": "direct stream",
-          "final_url": "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S88230050/W3T2uXpEeCuN/icecast",
-          "healthy": true,
-          "http_status": 200,
-          "request_urls": [
-            "http://icestreaming.rai.it/6.mp3",
-            "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S88230050/W3T2uXpEeCuN/icecast"
-          ],
-          "response_ms": 1105
-        },
-        "outcome": "app-cleartext-http",
-        "outcomes": [
-          "app-cleartext-http"
-        ],
-        "stream_url": "http://icestreaming.rai.it/6.mp3",
-        "tls_checks": [
-          {
-            "days_remaining": 86.2,
-            "detail": "certificate chain verified",
-            "expires_at": "2026-11-07T23:59:59+00:00",
-            "host": "mediapolis.rai.it",
-            "port": 443,
-            "status": "valid"
-          },
-          {
-            "days_remaining": 107.2,
-            "detail": "certificate chain verified",
-            "expires_at": "2026-11-28T23:59:59+00:00",
-            "host": "icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net",
-            "port": 443,
-            "status": "valid"
-          }
-        ],
-        "vlc_probe": {
-          "audio_bytes_arrived": false,
-          "content_type": "text/html",
-          "detail": "initial request returned HTTP 403",
-          "final_url": "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=6794912",
-          "healthy": false,
-          "http_status": 403,
-          "request_urls": [
-            "http://icestreaming.rai.it/6.mp3",
-            "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=6794912"
-          ],
-          "response_ms": 956
-        }
-      }
+      "frequency": 104.2,
+      "name": "Rai Isoradio",
+      "outcome": "app-cleartext-http",
+      "outcomes": [
+        "app-cleartext-http"
+      ]
+    },
+    "kisskiss": {
+      "frequency": 89.2,
+      "name": "Radio Kiss Kiss",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "m2o": {
+      "frequency": 94.5,
+      "name": "m2o",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "maria": {
+      "frequency": 95.9,
+      "name": "Radio Maria",
+      "outcome": "healthy",
+      "outcomes": []
     },
     "medua": {
-      "consecutive_failures": 2,
-      "issue_number": 4,
-      "last_result": {
-        "checked_at": "2026-08-13T19:46:58+00:00",
-        "cleartext_urls": [],
-        "healthy": false,
-        "ios_probe": {
-          "audio_bytes_arrived": true,
-          "content_type": "audio/mpeg",
-          "detail": "direct stream",
-          "final_url": "https://ssl1.azotosolutions.com:1030/1",
-          "healthy": true,
-          "http_status": 200,
-          "request_urls": [
-            "https://ssl1.azotosolutions.com:1030/1"
-          ],
-          "response_ms": 546
-        },
-        "outcome": "tls-certificate-expiring",
-        "outcomes": [
-          "tls-certificate-expiring"
-        ],
-        "stream_url": "https://ssl1.azotosolutions.com:1030/1",
-        "tls_checks": [
-          {
-            "days_remaining": 9.7,
-            "detail": "TLS certificate expires within 30 days",
-            "expires_at": "2026-08-23T11:38:23+00:00",
-            "host": "ssl1.azotosolutions.com",
-            "port": 1030,
-            "status": "expiring"
-          }
-        ],
-        "vlc_probe": {
-          "audio_bytes_arrived": true,
-          "content_type": "audio/mpeg",
-          "detail": "direct stream",
-          "final_url": "https://ssl1.azotosolutions.com:1030/1",
-          "healthy": true,
-          "http_status": 200,
-          "request_urls": [
-            "https://ssl1.azotosolutions.com:1030/1"
-          ],
-          "response_ms": 538
-        }
-      }
+      "frequency": 88.7,
+      "name": "Radio Medua",
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
     },
     "milazzo": {
-      "consecutive_failures": 2,
-      "issue_number": 7,
-      "last_result": {
-        "checked_at": "2026-08-13T19:47:23+00:00",
-        "cleartext_urls": [
-          "http://51.254.76.66:8012/;stream.mp3"
-        ],
-        "healthy": false,
-        "ios_probe": {
-          "audio_bytes_arrived": true,
-          "content_type": "audio/mpeg",
-          "detail": "direct stream",
-          "final_url": "http://51.254.76.66:8012/;stream.mp3",
-          "healthy": true,
-          "http_status": 200,
-          "request_urls": [
-            "http://51.254.76.66:8012/;stream.mp3"
-          ],
-          "response_ms": 346
-        },
-        "outcome": "app-cleartext-http",
-        "outcomes": [
-          "app-cleartext-http"
-        ],
-        "stream_url": "http://51.254.76.66:8012/;stream.mp3",
-        "tls_checks": [],
-        "vlc_probe": {
-          "audio_bytes_arrived": true,
-          "content_type": "audio/mpeg",
-          "detail": "direct stream",
-          "final_url": "http://51.254.76.66:8012/;stream.mp3",
-          "healthy": true,
-          "http_status": 200,
-          "request_urls": [
-            "http://51.254.76.66:8012/;stream.mp3"
-          ],
-          "response_ms": 344
-        }
-      }
+      "frequency": 100.0,
+      "name": "Radio Milazzo",
+      "outcome": "app-cleartext-http",
+      "outcomes": [
+        "app-cleartext-http"
+      ]
+    },
+    "r101": {
+      "frequency": 91.3,
+      "name": "R101",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "r105": {
+      "frequency": 104.7,
+      "name": "Radio 105",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "radicale": {
+      "frequency": 96.1,
+      "name": "Radio Radicale",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "radio24": {
+      "frequency": 91.1,
+      "name": "Radio 24",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "radiodoc": {
+      "frequency": 96.3,
+      "name": "Radio DOC",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "radiofreccia": {
+      "frequency": 100.9,
+      "name": "Radiofreccia",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "radioitalia": {
+      "frequency": 90.9,
+      "name": "Radio Italia",
+      "outcome": "healthy",
+      "outcomes": []
     },
     "rai1": {
-      "consecutive_failures": 3,
-      "issue_number": 1,
-      "last_result": {
-        "checked_at": "2026-08-13T19:46:58+00:00",
-        "cleartext_urls": [
-          "http://icestreaming.rai.it/1.mp3"
-        ],
-        "healthy": false,
-        "ios_probe": {
-          "audio_bytes_arrived": true,
-          "content_type": "audio/mpeg",
-          "detail": "direct stream",
-          "final_url": "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S16355530/Q4zh3NTu28Rx/icecast",
-          "healthy": true,
-          "http_status": 200,
-          "request_urls": [
-            "http://icestreaming.rai.it/1.mp3",
-            "https://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S16355530/Q4zh3NTu28Rx/icecast"
-          ],
-          "response_ms": 1265
-        },
-        "outcome": "app-cleartext-http",
-        "outcomes": [
-          "app-cleartext-http"
-        ],
-        "stream_url": "http://icestreaming.rai.it/1.mp3",
-        "tls_checks": [
-          {
-            "days_remaining": 86.2,
-            "detail": "certificate chain verified",
-            "expires_at": "2026-11-07T23:59:59+00:00",
-            "host": "mediapolis.rai.it",
-            "port": 443,
-            "status": "valid"
-          },
-          {
-            "days_remaining": 107.2,
-            "detail": "certificate chain verified",
-            "expires_at": "2026-11-28T23:59:59+00:00",
-            "host": "icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net",
-            "port": 443,
-            "status": "valid"
-          }
-        ],
-        "vlc_probe": {
-          "audio_bytes_arrived": false,
-          "content_type": "text/html",
-          "detail": "initial request returned HTTP 403",
-          "final_url": "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=3573854",
-          "healthy": false,
-          "http_status": 403,
-          "request_urls": [
-            "http://icestreaming.rai.it/1.mp3",
-            "https://mediapolis.rai.it/relinker/relinkerServlet.htm?cont=3573854"
-          ],
-          "response_ms": 1319
-        }
-      }
+      "frequency": 88.2,
+      "name": "Rai Radio 1",
+      "outcome": "app-cleartext-http",
+      "outcomes": [
+        "app-cleartext-http"
+      ]
+    },
+    "rai2": {
+      "frequency": 97.3,
+      "name": "Rai Radio 2",
+      "outcome": "healthy",
+      "outcomes": []
     },
     "rai3": {
-      "consecutive_failures": 2,
-      "issue_number": 5,
-      "last_result": {
-        "checked_at": "2026-08-13T19:47:10+00:00",
-        "cleartext_urls": [
-          "http://icestreaming.rai.it/3.mp3",
-          "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast"
-        ],
-        "healthy": false,
-        "ios_probe": {
-          "audio_bytes_arrived": true,
-          "content_type": "audio/mpeg",
-          "detail": "direct stream",
-          "final_url": "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast",
-          "healthy": true,
-          "http_status": 200,
-          "request_urls": [
-            "http://icestreaming.rai.it/3.mp3",
-            "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast"
-          ],
-          "response_ms": 943
-        },
-        "outcome": "app-cleartext-http",
-        "outcomes": [
-          "app-cleartext-http"
-        ],
-        "stream_url": "http://icestreaming.rai.it/3.mp3",
-        "tls_checks": [],
-        "vlc_probe": {
-          "audio_bytes_arrived": true,
-          "content_type": "audio/mpeg",
-          "detail": "direct stream",
-          "final_url": "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast",
-          "healthy": true,
-          "http_status": 200,
-          "request_urls": [
-            "http://icestreaming.rai.it/3.mp3",
-            "http://icecdn-19d24861e90342cc8decb03c24c8a419.msvdn.net/icecastRelay/S56630579/yEbkcBtIoSwd/icecast"
-          ],
-          "response_ms": 773
-        }
-      }
+      "frequency": 92.2,
+      "name": "Rai Radio 3",
+      "outcome": "app-cleartext-http",
+      "outcomes": [
+        "app-cleartext-http"
+      ]
+    },
+    "rcl": {
+      "frequency": 90.2,
+      "name": "RCL Castell'Umberto",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "rds": {
+      "frequency": 93.8,
+      "name": "RDS",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "ria60": {
+      "frequency": 107.1,
+      "name": "Radio Italia Anni 60",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "ricordi": {
+      "frequency": 90.0,
+      "name": "Radio Ricordi",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "rmc": {
+      "frequency": 105.1,
+      "name": "Radio Monte Carlo",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "rtl": {
+      "frequency": 102.5,
+      "name": "RTL 102.5",
+      "outcome": "healthy",
+      "outcomes": []
     },
     "splash": {
-      "consecutive_failures": 2,
-      "issue_number": 6,
-      "last_result": {
-        "checked_at": "2026-08-13T19:47:21+00:00",
-        "cleartext_urls": [],
-        "healthy": false,
-        "ios_probe": {
-          "audio_bytes_arrived": true,
-          "content_type": "audio/mpeg",
-          "detail": "direct stream",
-          "final_url": "https://ssl2.azotosolutions.com:1002/stream",
-          "healthy": true,
-          "http_status": 200,
-          "request_urls": [
-            "https://ssl2.azotosolutions.com:1002/stream"
-          ],
-          "response_ms": 635
-        },
-        "outcome": "tls-certificate-expiring",
-        "outcomes": [
-          "tls-certificate-expiring"
-        ],
-        "stream_url": "https://ssl2.azotosolutions.com:1002/stream",
-        "tls_checks": [
-          {
-            "days_remaining": 19.6,
-            "detail": "TLS certificate expires within 30 days",
-            "expires_at": "2026-09-02T09:56:51+00:00",
-            "host": "ssl2.azotosolutions.com",
-            "port": 1002,
-            "status": "expiring"
-          }
-        ],
-        "vlc_probe": {
-          "audio_bytes_arrived": true,
-          "content_type": "audio/mpeg",
-          "detail": "direct stream",
-          "final_url": "https://ssl2.azotosolutions.com:1002/stream",
-          "healthy": true,
-          "http_status": 200,
-          "request_urls": [
-            "https://ssl2.azotosolutions.com:1002/stream"
-          ],
-          "response_ms": 577
-        }
-      }
+      "frequency": 96.8,
+      "name": "Radio Splash",
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
+    },
+    "sportiva": {
+      "frequency": 88.5,
+      "name": "Radio Sportiva",
+      "outcome": "healthy",
+      "outcomes": []
     },
     "stereosantagata": {
-      "consecutive_failures": 3,
-      "issue_number": 2,
-      "last_result": {
-        "checked_at": "2026-08-13T19:47:27+00:00",
-        "cleartext_urls": [],
-        "healthy": false,
-        "ios_probe": {
-          "audio_bytes_arrived": false,
-          "content_type": "unknown",
-          "detail": "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, plea",
-          "final_url": "https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037",
-          "healthy": false,
-          "http_status": 0,
-          "request_urls": [
-            "https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037"
-          ],
-          "response_ms": 0
-        },
-        "outcome": "tls-chain-invalid",
-        "outcomes": [
-          "tls-chain-invalid"
-        ],
-        "stream_url": "https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037",
-        "tls_checks": [
-          {
-            "days_remaining": null,
-            "detail": "unable to get local issuer certificate",
-            "expires_at": null,
-            "host": "radiostereo103.no-ip.biz",
-            "port": 8002,
-            "status": "invalid_chain"
-          }
-        ],
-        "vlc_probe": {
-          "audio_bytes_arrived": false,
-          "content_type": "unknown",
-          "detail": "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, plea",
-          "final_url": "https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037",
-          "healthy": false,
-          "http_status": 0,
-          "request_urls": [
-            "https://radiostereo103.no-ip.biz:8002/;?icy=http&1786137072037"
-          ],
-          "response_ms": 0
-        }
-      }
+      "frequency": 103.0,
+      "name": "Radio Stereo Sant'Agata",
+      "outcome": "tls-chain-invalid",
+      "outcomes": [
+        "tls-chain-invalid"
+      ]
+    },
+    "taormina": {
+      "frequency": 103.3,
+      "name": "Radio Taormina",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "touring104": {
+      "frequency": 104.4,
+      "name": "Radio Touring 104",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "virgin": {
+      "frequency": 87.9,
+      "name": "Virgin Radio",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "zenith": {
+      "frequency": 95.7,
+      "name": "Radio Zenith Messina",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "zeta": {
+      "frequency": 89.5,
+      "name": "Radio Zeta",
+      "outcome": "healthy",
+      "outcomes": []
     }
   }
 }
