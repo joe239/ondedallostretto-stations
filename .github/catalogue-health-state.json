@@ -131,8 +131,10 @@
     "rai2": {
       "frequency": 97.3,
       "name": "Rai Radio 2",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "ios-user-agent-rejected",
+      "outcomes": [
+        "ios-user-agent-rejected"
+      ]
     },
     "rai3": {
       "frequency": 92.2,
