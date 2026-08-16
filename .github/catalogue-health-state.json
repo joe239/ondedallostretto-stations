@@ -15,8 +15,10 @@
     "capital": {
       "frequency": 90.6,
       "name": "Radio Capital",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "ios-user-agent-rejected",
+      "outcomes": [
+        "ios-user-agent-rejected"
+      ]
     },
     "deejay": {
       "frequency": 90.4,
@@ -111,8 +113,10 @@
     "radiofreccia": {
       "frequency": 100.9,
       "name": "Radiofreccia",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "stream-failure",
+      "outcomes": [
+        "stream-failure"
+      ]
     },
     "radioitalia": {
       "frequency": 90.9,
@@ -131,10 +135,8 @@
     "rai2": {
       "frequency": 97.3,
       "name": "Rai Radio 2",
-      "outcome": "ios-user-agent-rejected",
-      "outcomes": [
-        "ios-user-agent-rejected"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "rai3": {
       "frequency": 92.2,
