@@ -15,10 +15,8 @@
     "capital": {
       "frequency": 90.6,
       "name": "Radio Capital",
-      "outcome": "ios-user-agent-rejected",
-      "outcomes": [
-        "ios-user-agent-rejected"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "deejay": {
       "frequency": 90.4,
@@ -67,10 +65,8 @@
     "medua": {
       "frequency": 88.7,
       "name": "Radio Medua",
-      "outcome": "tls-certificate-expiring",
-      "outcomes": [
-        "tls-certificate-expiring"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "milazzo": {
       "frequency": 100.0,
@@ -113,10 +109,8 @@
     "radiofreccia": {
       "frequency": 100.9,
       "name": "Radiofreccia",
-      "outcome": "stream-failure",
-      "outcomes": [
-        "stream-failure"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "radioitalia": {
       "frequency": 90.9,
