@@ -33,8 +33,10 @@
     "gammanostop": {
       "frequency": 92.5,
       "name": "Radio Gamma No Stop",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "stream-failure",
+      "outcomes": [
+        "stream-failure"
+      ]
     },
     "isoradio": {
       "frequency": 104.2,
