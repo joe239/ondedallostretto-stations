@@ -59,8 +59,10 @@
     "maria": {
       "frequency": 95.9,
       "name": "Radio Maria",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
     },
     "medua": {
       "frequency": 88.7,
