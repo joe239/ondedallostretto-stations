@@ -70,6 +70,29 @@ jobs:
               return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
 
+          def runner_egress_country():
+              result = subprocess.run(
+                  [
+                      "curl",
+                      "--fail",
+                      "--silent",
+                      "--show-error",
+                      "--max-time",
+                      "10",
+                      "https://www.cloudflare.com/cdn-cgi/trace",
+                  ],
+                  capture_output=True,
+                  text=True,
+              )
+              if result.returncode != 0:
+                  return "unknown"
+              for line in result.stdout.splitlines():
+                  if line.startswith("loc="):
+                      country = line.removeprefix("loc=").strip().upper()
+                      return country or "unknown"
+              return "unknown"
+
+
           def gh_api(method, endpoint, fields=None, paginate=False):
               command = ["gh", "api", "--method", method]
               if paginate:
@@ -466,9 +489,10 @@ jobs:
               )
 
 
-          def bulletin_comment(results):
+          def bulletin_comment(results, runner_country):
               lines = [
                   f"Stato completo al `{utc_now()}`:",
+                  f"Regione di esecuzione (IP di uscita): `{runner_country}`",
                   "",
               ]
               for result in results:
@@ -486,6 +510,9 @@ jobs:
               lines.extend(["", f"Workflow run: {RUN_URL}"])
               return "\n".join(lines)
 
+
+          runner_country = runner_egress_country()
+          print(f"RUNNER_EGRESS_COUNTRY country={runner_country}")
 
           published_bytes = fetch(CATALOGUE_URL, seconds=30, maximum_bytes=1048576)
           if not 200 <= published_bytes["status"] < 300:
@@ -559,20 +586,19 @@ jobs:
                   "outcomes": current_labels,
               }
 
-          if state_changed:
-              bulletin = issues_by_title.get(HEALTH_BULLETIN_TITLE)
-              if bulletin is None:
-                  bulletin = create_issue(
-                      HEALTH_BULLETIN_TITLE,
-                      "Bollettino unico dei cambiamenti di salute e "
-                      "compatibilità del catalogo.",
-                  )
-              elif bulletin["state"] != "open":
-                  bulletin = set_issue_state(bulletin["number"], "open")
-              comment_on_issue(
-                  bulletin["number"],
-                  bulletin_comment(results),
+          bulletin = issues_by_title.get(HEALTH_BULLETIN_TITLE)
+          if bulletin is None:
+              bulletin = create_issue(
+                  HEALTH_BULLETIN_TITLE,
+                  "Bollettino unico dei cambiamenti di salute e "
+                  "compatibilità del catalogo.",
               )
+          elif bulletin["state"] != "open":
+              bulletin = set_issue_state(bulletin["number"], "open")
+          comment_on_issue(
+              bulletin["number"],
+              bulletin_comment(results, runner_country),
+          )
 
           state["stations"] = next_station_state
 
