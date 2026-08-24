@@ -27,10 +27,8 @@
     "febea": {
       "frequency": 100.6,
       "name": "Radio Antenna Febea",
-      "outcome": "stream-failure",
-      "outcomes": [
-        "stream-failure"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "gammanostop": {
       "frequency": 92.5,
