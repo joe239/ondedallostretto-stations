@@ -91,10 +91,8 @@
     "radicale": {
       "frequency": 96.1,
       "name": "Radio Radicale",
-      "outcome": "ios-user-agent-rejected",
-      "outcomes": [
-        "ios-user-agent-rejected"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "radio24": {
       "frequency": 91.1,
@@ -175,8 +173,10 @@
     "rtl": {
       "frequency": 102.5,
       "name": "RTL 102.5",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "ios-user-agent-rejected",
+      "outcomes": [
+        "ios-user-agent-rejected"
+      ]
     },
     "splash": {
       "frequency": 96.8,
