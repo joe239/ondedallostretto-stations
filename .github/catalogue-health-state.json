@@ -1,64 +1,14 @@
 {
   "stations": {
-    "amore": {
-      "frequency": 95.5,
-      "name": "Radio Amore",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "antennastretto": {
-      "frequency": 102.8,
-      "name": "Antenna dello Stretto",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "capital": {
-      "frequency": 90.6,
-      "name": "Radio Capital",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "deejay": {
-      "frequency": 90.4,
-      "name": "Radio Deejay",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "febea": {
-      "frequency": 100.6,
-      "name": "Radio Antenna Febea",
+    "dimsuono": {
+      "frequency": 96.0,
+      "name": "DIMSUONO",
       "outcome": "healthy",
       "outcomes": []
     },
     "gammanostop": {
       "frequency": 92.5,
       "name": "Radio Gamma No Stop",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "isoradio": {
-      "frequency": 104.2,
-      "name": "Rai Isoradio",
-      "outcome": "app-cleartext-http",
-      "outcomes": [
-        "app-cleartext-http"
-      ]
-    },
-    "kisskiss": {
-      "frequency": 89.2,
-      "name": "Radio Kiss Kiss",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "m2o": {
-      "frequency": 94.5,
-      "name": "m2o",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "maria": {
-      "frequency": 95.9,
-      "name": "Radio Maria",
       "outcome": "healthy",
       "outcomes": []
     },
@@ -76,106 +26,24 @@
         "app-cleartext-http"
       ]
     },
-    "r101": {
-      "frequency": 91.3,
-      "name": "R101",
+    "radioflash": {
+      "frequency": 104.9,
+      "name": "Radio Flash",
       "outcome": "healthy",
       "outcomes": []
     },
-    "r105": {
-      "frequency": 104.7,
-      "name": "Radio 105",
+    "reporter98": {
+      "frequency": 98.1,
+      "name": "Radio Reporter 98",
       "outcome": "healthy",
       "outcomes": []
     },
-    "radicale": {
-      "frequency": 96.1,
-      "name": "Radio Radicale",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "radio24": {
-      "frequency": 91.1,
-      "name": "Radio 24",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "radiodoc": {
-      "frequency": 96.3,
-      "name": "Radio DOC",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "radiofreccia": {
-      "frequency": 100.9,
-      "name": "Radiofreccia",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "radioitalia": {
-      "frequency": 90.9,
-      "name": "Radio Italia",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "rai1": {
-      "frequency": 88.2,
-      "name": "Rai Radio 1",
+    "rmq": {
+      "frequency": 101.4,
+      "name": "RMQ inBlu",
       "outcome": "app-cleartext-http",
       "outcomes": [
         "app-cleartext-http"
-      ]
-    },
-    "rai2": {
-      "frequency": 97.3,
-      "name": "Rai Radio 2",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "rai3": {
-      "frequency": 92.2,
-      "name": "Rai Radio 3",
-      "outcome": "app-cleartext-http",
-      "outcomes": [
-        "app-cleartext-http"
-      ]
-    },
-    "rcl": {
-      "frequency": 90.2,
-      "name": "RCL Castell'Umberto",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "rds": {
-      "frequency": 93.8,
-      "name": "RDS",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "ria60": {
-      "frequency": 107.1,
-      "name": "Radio Italia Anni 60",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "ricordi": {
-      "frequency": 90.0,
-      "name": "Radio Ricordi",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "rmc": {
-      "frequency": 105.1,
-      "name": "Radio Monte Carlo",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "rtl": {
-      "frequency": 102.5,
-      "name": "RTL 102.5",
-      "outcome": "ios-user-agent-rejected",
-      "outcomes": [
-        "ios-user-agent-rejected"
       ]
     },
     "splash": {
@@ -186,19 +54,25 @@
         "tls-certificate-expiring"
       ]
     },
-    "sportiva": {
-      "frequency": 88.5,
-      "name": "Radio Sportiva",
-      "outcome": "healthy",
-      "outcomes": []
-    },
     "stereosantagata": {
       "frequency": 103.0,
       "name": "Radio Stereo Sant'Agata",
-      "outcome": "tls-chain-invalid",
+      "outcome": "app-cleartext-http",
       "outcomes": [
-        "tls-chain-invalid"
+        "app-cleartext-http"
       ]
+    },
+    "studio54network": {
+      "frequency": 106.5,
+      "name": "Studio54network",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "studio97": {
+      "frequency": 97.0,
+      "name": "Radio Studio 97",
+      "outcome": "healthy",
+      "outcomes": []
     },
     "taormina": {
       "frequency": 103.3,
@@ -209,24 +83,6 @@
     "touring104": {
       "frequency": 104.4,
       "name": "Radio Touring 104",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "virgin": {
-      "frequency": 87.9,
-      "name": "Virgin Radio",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "zenith": {
-      "frequency": 95.7,
-      "name": "Radio Zenith Messina",
-      "outcome": "healthy",
-      "outcomes": []
-    },
-    "zeta": {
-      "frequency": 89.5,
-      "name": "Radio Zeta",
       "outcome": "healthy",
       "outcomes": []
     }
