@@ -3,8 +3,10 @@
     "dimsuono": {
       "frequency": 96.0,
       "name": "DIMSUONO",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "stream-failure",
+      "outcomes": [
+        "stream-failure"
+      ]
     },
     "gammanostop": {
       "frequency": 92.5,
@@ -49,10 +51,8 @@
     "splash": {
       "frequency": 96.8,
       "name": "Radio Splash",
-      "outcome": "tls-certificate-expiring",
-      "outcomes": [
-        "tls-certificate-expiring"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "stereosantagata": {
       "frequency": 103.0,
