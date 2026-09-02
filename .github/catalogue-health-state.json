@@ -3,10 +3,8 @@
     "dimsuono": {
       "frequency": 96.0,
       "name": "DIMSUONO",
-      "outcome": "stream-failure",
-      "outcomes": [
-        "stream-failure"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "gammanostop": {
       "frequency": 92.5,
