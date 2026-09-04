@@ -26,6 +26,12 @@
         "app-cleartext-http"
       ]
     },
+    "radioakr": {
+      "frequency": 91.6,
+      "name": "Radio AKR",
+      "outcome": "healthy",
+      "outcomes": []
+    },
     "radioflash": {
       "frequency": 104.9,
       "name": "Radio Flash",
