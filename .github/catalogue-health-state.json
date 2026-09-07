@@ -32,9 +32,21 @@
       "outcome": "healthy",
       "outcomes": []
     },
+    "radiocentovittoria": {
+      "frequency": 93.5,
+      "name": "Radio Cento Vittoria",
+      "outcome": "healthy",
+      "outcomes": []
+    },
     "radioflash": {
       "frequency": 104.9,
       "name": "Radio Flash",
+      "outcome": "healthy",
+      "outcomes": []
+    },
+    "radiosole": {
+      "frequency": 95.3,
+      "name": "Radio Sole",
       "outcome": "healthy",
       "outcomes": []
     },
@@ -87,8 +99,10 @@
     "touring104": {
       "frequency": 104.4,
       "name": "Radio Touring 104",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
     }
   }
 }
