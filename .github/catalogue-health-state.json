@@ -99,10 +99,8 @@
     "touring104": {
       "frequency": 104.4,
       "name": "Radio Touring 104",
-      "outcome": "tls-certificate-expiring",
-      "outcomes": [
-        "tls-certificate-expiring"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     }
   }
 }
