@@ -61,7 +61,8 @@
       "name": "RMQ inBlu",
       "outcome": "app-cleartext-http",
       "outcomes": [
-        "app-cleartext-http"
+        "app-cleartext-http",
+        "ios-user-agent-rejected"
       ]
     },
     "splash": {
