@@ -10,7 +10,7 @@
   {"id":"radiosole","name":"Radio Sole","group":"local","frequency":95.3,
    "streamURL":"https://radiosole-fellini.radioca.st/;"},
   {"id":"dimsuono","name":"DIMSUONO","group":"local","frequency":96.0,
-   "streamURL":"https://be.server89.com:10989/stream"},
+   "streamURL":"https://sp3.server89.com:7064/stream"},
   {"id":"splash","name":"Radio Splash","group":"local","frequency":96.8,
    "streamURL":"https://ssl2.azotosolutions.com:1002/stream"},
   {"id":"studio97","name":"Radio Studio 97","group":"local","frequency":97.0,
