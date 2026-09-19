@@ -6,6 +6,12 @@
       "outcome": "healthy",
       "outcomes": []
     },
+    "febea": {
+      "frequency": 100.3,
+      "name": "Radio Antenna Febea",
+      "outcome": "healthy",
+      "outcomes": []
+    },
     "gammanostop": {
       "frequency": 92.5,
       "name": "Radio Gamma No Stop",
