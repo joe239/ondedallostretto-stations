@@ -35,10 +35,8 @@
     "radioakr": {
       "frequency": 91.6,
       "name": "Radio AKR",
-      "outcome": "tls-certificate-expiring",
-      "outcomes": [
-        "tls-certificate-expiring"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "radiocentovittoria": {
       "frequency": 93.5,
