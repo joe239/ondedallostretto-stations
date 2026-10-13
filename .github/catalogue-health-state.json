@@ -35,10 +35,8 @@
     "radioakr": {
       "frequency": 91.6,
       "name": "Radio AKR",
-      "outcome": "stream-failure",
-      "outcomes": [
-        "stream-failure"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "radiocentovittoria": {
       "frequency": 93.5,
