@@ -105,8 +105,10 @@
     "touring104": {
       "frequency": 104.4,
       "name": "Radio Touring 104",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "stream-failure",
+      "outcomes": [
+        "stream-failure"
+      ]
     }
   }
 }
