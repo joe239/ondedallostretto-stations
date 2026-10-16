@@ -21,8 +21,10 @@
     "medua": {
       "frequency": 88.7,
       "name": "Radio Medua",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
     },
     "milazzo": {
       "frequency": 100.0,
