@@ -31,6 +31,8 @@
    "streamURL":"https://streamingaudio.auranex.cloud/touring104"},
   {"id":"radioflash","name":"Radio Flash","group":"local","frequency":104.9,
    "streamURL":"https://stream2.xdevel.com/audio5s194-48/stream/icecast.audio"},
+  {"id":"radiodoc","name":"Radio DOC","group":"local","frequency":105.8,
+   "streamURL":"https://zerounocaststreaming.it:2020/stream/radiodoc"},
   {"id":"studio54network","name":"Studio54network","group":"local","frequency":106.5,
    "streamURL":"https://stream10.xdevel.com/audio0s977557-2095/stream/icecast.audio"}
 ]
