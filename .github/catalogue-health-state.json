@@ -46,6 +46,12 @@
       "outcome": "healthy",
       "outcomes": []
     },
+    "radiodoc": {
+      "frequency": 105.8,
+      "name": "Radio DOC",
+      "outcome": "healthy",
+      "outcomes": []
+    },
     "radioflash": {
       "frequency": 104.9,
       "name": "Radio Flash",
@@ -107,10 +113,8 @@
     "touring104": {
       "frequency": 104.4,
       "name": "Radio Touring 104",
-      "outcome": "stream-failure",
-      "outcomes": [
-        "stream-failure"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     }
   }
 }
