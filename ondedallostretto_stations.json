@@ -1,8 +1,6 @@
 [
   {"id":"medua","name":"Radio Medua","group":"local","frequency":88.7,
    "streamURL":"https://ssl1.azotosolutions.com:1030/1"},
-  {"id":"radiodelfino","name":"Radio Delfino","group":"local","frequency":90.4,
-   "streamURL":"https://stream.radiodelfino.com:8040/radio.mp3"},
   {"id":"radioakr","name":"Radio AKR","group":"local","frequency":91.6,
    "streamURL":"https://nrf1.newradio.it:9950/stream"},
   {"id":"gammanostop","name":"Radio Gamma No Stop","group":"local","frequency":92.5,
