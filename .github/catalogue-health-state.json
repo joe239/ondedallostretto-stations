@@ -78,6 +78,12 @@
         "app-cleartext-http"
       ]
     },
+    "rpl708090": {
+      "frequency": 103.7,
+      "name": "RPL 708090",
+      "outcome": "healthy",
+      "outcomes": []
+    },
     "splash": {
       "frequency": 96.8,
       "name": "Radio Splash",
