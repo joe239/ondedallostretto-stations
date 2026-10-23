@@ -21,6 +21,8 @@
    "streamURL":"http://51.254.76.66:8012/;stream.mp3"},
   {"id":"febea","name":"Radio Antenna Febea","group":"local","frequency":100.3,
    "streamURL":"https://stream3.xdevel.com/audio1s975408-118/stream/icecast.audio"},
+  {"id":"rmc101","name":"RMC101","group":"local","frequency":101.0,
+   "streamURL":"https://stream3.xdevel.com/audio0s975454-172/stream/icecast.audio"},
   {"id":"rmq","name":"RMQ inBlu","group":"local","frequency":101.4,
    "streamURL":"http://radio.live.messinaquartiere.it:9192/;stream.mp3"},
   {"id":"stereosantagata","name":"Radio Stereo Sant'Agata","group":"local","frequency":103.0,
