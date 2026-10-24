@@ -70,6 +70,12 @@
       "outcome": "healthy",
       "outcomes": []
     },
+    "rmc101": {
+      "frequency": 101.0,
+      "name": "RMC101",
+      "outcome": "healthy",
+      "outcomes": []
+    },
     "rmq": {
       "frequency": 101.4,
       "name": "RMQ inBlu",
