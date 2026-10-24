@@ -32,7 +32,7 @@
   {"id":"taormina","name":"Radio Taormina","group":"local","frequency":103.3,
    "streamURL":"https://stream2.xdevel.com/audio0s11-12/stream/icecast.audio"},
   {"id":"rpl708090","name":"RPL 708090","group":"local","frequency":103.7,
-   "streamURL":"https://live.nextstreaming.it/rpl708090network.mp3"},
+   "streamURL":"https://stream2.xdevel.com/audio7s194-50/stream/icecast.audio"},
   {"id":"touring104","name":"Radio Touring 104","group":"local","frequency":104.4,
    "streamURL":"https://streamingaudio.auranex.cloud/touring104"},
   {"id":"radioflash","name":"Radio Flash","group":"local","frequency":104.9,
