@@ -46,6 +46,12 @@
       "outcome": "healthy",
       "outcomes": []
     },
+    "radiodelfino": {
+      "frequency": 90.4,
+      "name": "Radio Delfino",
+      "outcome": "healthy",
+      "outcomes": []
+    },
     "radiodoc": {
       "frequency": 105.8,
       "name": "Radio DOC",
