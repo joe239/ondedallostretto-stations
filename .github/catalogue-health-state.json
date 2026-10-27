@@ -49,8 +49,10 @@
     "radiodelfino": {
       "frequency": 90.4,
       "name": "Radio Delfino",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
     },
     "radiodoc": {
       "frequency": 105.8,
