@@ -101,8 +101,10 @@
     "splash": {
       "frequency": 96.8,
       "name": "Radio Splash",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
     },
     "stereosantagata": {
       "frequency": 103.0,
