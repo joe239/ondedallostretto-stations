@@ -37,8 +37,10 @@
     "radioakr": {
       "frequency": 91.6,
       "name": "Radio AKR",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "stream-failure",
+      "outcomes": [
+        "stream-failure"
+      ]
     },
     "radiocentovittoria": {
       "frequency": 93.5,
@@ -75,8 +77,10 @@
     "reporter98": {
       "frequency": 98.1,
       "name": "Radio Reporter 98",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
     },
     "rmc101": {
       "frequency": 101.0,
