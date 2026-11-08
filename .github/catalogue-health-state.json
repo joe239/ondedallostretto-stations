@@ -77,10 +77,8 @@
     "reporter98": {
       "frequency": 98.1,
       "name": "Radio Reporter 98",
-      "outcome": "tls-certificate-expiring",
-      "outcomes": [
-        "tls-certificate-expiring"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "rmc101": {
       "frequency": 101.0,
