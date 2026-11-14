@@ -3,8 +3,10 @@
     "dimsuono": {
       "frequency": 96.0,
       "name": "DIMSUONO",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
     },
     "febea": {
       "frequency": 100.3,
