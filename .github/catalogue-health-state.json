@@ -49,10 +49,8 @@
     "radiodelfino": {
       "frequency": 90.4,
       "name": "Radio Delfino",
-      "outcome": "tls-certificate-expiring",
-      "outcomes": [
-        "tls-certificate-expiring"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "radiodoc": {
       "frequency": 105.8,
@@ -69,10 +67,8 @@
     "radioroccella": {
       "frequency": 94.8,
       "name": "Radio Roccella",
-      "outcome": "tls-certificate-expiring",
-      "outcomes": [
-        "tls-certificate-expiring"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "radiosole": {
       "frequency": 95.3,
