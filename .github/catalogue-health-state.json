@@ -70,6 +70,12 @@
       "outcome": "healthy",
       "outcomes": []
     },
+    "radiosirio": {
+      "frequency": 98.0,
+      "name": "Radio Sirio",
+      "outcome": "healthy",
+      "outcomes": []
+    },
     "radiosole": {
       "frequency": 95.3,
       "name": "Radio Sole",
