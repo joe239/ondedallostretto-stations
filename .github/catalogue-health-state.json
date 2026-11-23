@@ -99,7 +99,8 @@
       "name": "RMQ inBlu",
       "outcome": "app-cleartext-http",
       "outcomes": [
-        "app-cleartext-http"
+        "app-cleartext-http",
+        "ios-user-agent-rejected"
       ]
     },
     "rpl708090": {
@@ -111,10 +112,8 @@
     "splash": {
       "frequency": 96.8,
       "name": "Radio Splash",
-      "outcome": "tls-certificate-expiring",
-      "outcomes": [
-        "tls-certificate-expiring"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "stereosantagata": {
       "frequency": 103.0,
