@@ -11,10 +11,8 @@
     "febea": {
       "frequency": 100.3,
       "name": "Radio Antenna Febea",
-      "outcome": "ios-user-agent-rejected",
-      "outcomes": [
-        "ios-user-agent-rejected"
-      ]
+      "outcome": "healthy",
+      "outcomes": []
     },
     "gammanostop": {
       "frequency": 92.5,
@@ -39,8 +37,10 @@
     "radioakr": {
       "frequency": 91.6,
       "name": "Radio AKR",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
     },
     "radiocentovittoria": {
       "frequency": 93.5,
@@ -75,8 +75,10 @@
     "radiosirio": {
       "frequency": 98.0,
       "name": "Radio Sirio",
-      "outcome": "healthy",
-      "outcomes": []
+      "outcome": "tls-certificate-expiring",
+      "outcomes": [
+        "tls-certificate-expiring"
+      ]
     },
     "radiosole": {
       "frequency": 95.3,
